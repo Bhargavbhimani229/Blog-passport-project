@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Admin - Blog Form</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      crossorigin="anonymous"
+    />
+
+    <style>
+      /* Custom Styling */
+      body {
+        font-family: "Poppins", sans-serif;
+        color: white;
+        margin: 0;
+        padding: 0;
+      }
+
+      /* Background Video */
+      .bg-video {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        z-index: -1;
+      }
+
+
+      .form-container {
+        background: rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(10px);
+        padding: 40px;
+        border-radius: 15px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        transition: 0.3s ease-in-out;
+      }
+
+      .form-container:hover {
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        transform: translateY(-5px);
+      }
+
+      h2 {
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 20px;
+      }
+
+      .form-label {
+        font-weight: 600;
+        color: #f8f9fa;
+      }
+
+      .form-control {
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.2);
+        border: none;
+        color: white;
+      }
+
+      .form-control:focus {
+        background: rgba(255, 255, 255, 0.3);
+        box-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
+      }
+
+      .btn-primary {
+        width: 100%;
+        padding: 12px;
+        font-size: 16px;
+        border-radius: 8px;
+        font-weight: 600;
+        background: #ff7eb3;
+        border: none;
+        transition: 0.3s;
+      }
+
+      .btn-primary:hover {
+        background: #ff4f8b;
+        transform: scale(1.05);
+      }
+
+      .footer {
+        margin-top: 30px;
+        padding: 15px;
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 8px;
+        color: white;
+      }
+
+      @media (max-width: 768px) {
+        .form-container {
+          padding: 25px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+      <!-- Background Video -->
+      <video autoplay loop muted playsinline class="bg-video">
+        <source
+          src="https://cdn.pixabay.com/video/2023/03/09/153976-817104245_large.mp4"
+          type="video/mp4"
+        />
+      </video>
+    <%- include('../partials/header') %>
+
+    <main>
+      <div class="container mt-5">
+        <div class="row justify-content-center">
+          <div class="col-md-6">
+            <div class="form-container text-white mt-5">
+              <h2 class="text-center mb-4">Edit Blog Post</h2>
+              <form method="post" action="/update/<%= blog._id %>" enctype="multipart/form-data">
+                <div class="mb-3">
+                  <label for="blogTitle" class="form-label">Blog Title</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="blogTitle"
+                    name="title"
+                    value="<%= blog.title %>"
+                    required
+                  />
+                </div>
+                <div class="mb-3">
+                  <label for="author" class="form-label">Author</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="author"
+                    name="author"
+                    value="<%= blog.author %>"
+                    required
+                  />
+                </div>
+                <div class="mb-3">
+                  <input
+                    type="hidden"
+                    name="old_image"
+                    value="<%= blog.image %>"
+                  />
+                  <label for="image" class="form-label">Upload Image</label>
+                  <input
+                    type="file"
+                    class="form-control"
+                    name="image"
+                    id="image"
+                    value="<%= blog.image %>"
+                    accept="image/*"
+                  />
+                </div>
+                <div class="mb-3">
+                  <label for="content" class="form-label">Content</label>
+                  <textarea
+                    class="form-control"
+                    name="content"
+                    id="content"
+                    rows="5"
+                    required
+                  >
+                    <%= blog.content %>
+                  </textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer class="text-center footer">
+      <p>&copy; 2025 Shoe Factory. All Rights Reserved.</p>
+    </footer>
+
+    <!-- Bootstrap JavaScript -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

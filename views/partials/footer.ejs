@@ -1,0 +1,28 @@
+<script>
+function openEditForm() {
+      document.getElementById('editForm').style.display = 'block';
+      document.getElementById('editUsername').value = document.getElementById('username').innerText;
+      document.getElementById('editBio').value = document.getElementById('bio').innerText;
+  }
+
+  function saveProfile() {
+      const newUsername = document.getElementById('editUsername').value;
+      const newBio = document.getElementById('editBio').value;
+      document.getElementById('username').innerText = newUsername;
+      document.getElementById('bio').innerText = newBio;
+      document.getElementById('editForm').style.display = 'none';
+  }
+
+  function openCoverEditor() {
+      const newCover = prompt('Yeni kapak resmi URL:');
+      if (newCover) document.getElementById('coverImage').src = newCover;
+  }
+
+  function openProfileEditor() {
+      const newProfile = prompt('Yeni profil resmi URL:');
+      if (newProfile) document.getElementById('profileImage').src = newProfile;
+  }
+</script>
+
+</body>
+</html>

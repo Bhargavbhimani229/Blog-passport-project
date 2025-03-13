@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup Page</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #1a1a40, #2b2b73);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .card {
+            width: 350px;
+            background: #262647;
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        }
+        .btn-primary {
+            background: #6a5acd;
+            border: none;
+        }
+        .btn-primary:hover {
+            background: #5548c4;
+        }
+        .login-link {
+            text-align: center;
+            margin-top: 10px;
+        }
+        .login-link a {
+            color: #a18fff;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+
+<div class="card text-center">
+    <h2 class="mb-3">Sign Up</h2>
+    <form method="post" action="/createCred">
+        <div class="mb-3">
+            <input type="text" class="form-control" name="username" placeholder="User name" required>
+        </div>
+        <div class="mb-3">
+            <input type="email" class="form-control" name="email" placeholder="Email" required>
+        </div>
+        <div class="mb-3">
+            <input type="password" class="form-control" name="password" placeholder="Password" required>
+        </div>
+        <div class="mb-3">
+            <input type="password" class="form-control" name="confirmPw" placeholder="ConfirmPassword" required>
+        </div>
+        <button type="submit" class="btn btn-primary w-100">Sign Up</button>
+    </form>
+    <div class="login-link">
+        <p>Already have an account? <a href="/login">Login</a></p>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
