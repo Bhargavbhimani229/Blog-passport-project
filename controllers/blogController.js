@@ -105,7 +105,6 @@ module.exports.login = (req, res) => {
   return res.render("pages/login");
 };
 
-
 // Authentication
 
 module.exports.createCred = async (req, res) => {
@@ -119,12 +118,33 @@ module.exports.createCred = async (req, res) => {
   }
 };
 
-
 module.exports.logOut = (req, res) => {
   console.log("User logged out, cookie removed.");
   return res.redirect("/login");
 };
 
-module.exports.profile = (req,res) => {
+module.exports.profile = (req, res) => {
   return res.render("pages/profile");
-}
+};
+
+module.exports.changePasswordPage = (req, res) => {
+  return res.render("pages/change-password");
+};
+
+module.exports.submitChangePassword = async (req, res) => {
+  const { current_password, new_password, confirm_password } = req.body;
+  const { id } = req.user;
+  let user = await userCred.findById(id);
+
+  if (current_password === user.password) {
+    if (new_password === confirm_password) {
+      user.password = new_password;
+      await user.save();
+      return res.redirect("/login");
+    } else {
+      return res.redirect(req.get("Referrer") || "/");
+    }
+  } else {
+    return res.redirect(req.get("Referrer") || "/");
+  }
+};

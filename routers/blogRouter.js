@@ -22,6 +22,9 @@ blogRouter.post("/update/:id", upload, blogController.blogUpdate);
 blogRouter.get("/blogView/:id", blogController.view);
 blogRouter.get("/profile",blogController.profile);
 
+blogRouter.get("/change-password",blogController.changePasswordPage);
+blogRouter.post("/change-password",blogController.submitChangePassword);
+
 
 
 

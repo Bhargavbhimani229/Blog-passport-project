@@ -39,5 +39,12 @@ passport.userPassportAuth = (req,res,next) =>{
   return next();
 }
 
+passport.userLocalsData = (req,res,next) => {
+  if(req.isAuthenticated()){
+    res.locals.user = req.user;
+  }
+  return next();
+}
+
 
 module.exports = passport;
