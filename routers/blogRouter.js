@@ -6,26 +6,24 @@ const passport = require("passport");
 
 const blogRouter = Router();
 
+// blogRouter.use(passport.sweetFlash);
+
 blogRouter.get("/login", blogController.login);
 blogRouter.get("/singUp", blogController.singUp);
 blogRouter.post("/createCred", blogController.createCred);
-blogRouter.post("/login",passport.authenticate('local',{failureRedirect:'/login',successRedirect:'/index'}))
+blogRouter.post("/login",passport.authenticate("local",{ failureRedirect: "/login" }),blogController.loginFlash);
 blogRouter.use(passport.userPassportAuth);
 
 blogRouter.get("/homePage", blogController.homePage);
-blogRouter.get("/index", blogController.indexBlog);
 blogRouter.post("/create", upload, blogController.create);
-blogRouter.get("/form",blogController.formPage);
+blogRouter.get("/form", blogController.formPage);
 blogRouter.get("/delete/:id", blogController.blogDelete);
 blogRouter.get("/edit/:id", blogController.blogEdit);
 blogRouter.post("/update/:id", upload, blogController.blogUpdate);
 blogRouter.get("/blogView/:id", blogController.view);
-blogRouter.get("/profile",blogController.profile);
+blogRouter.get("/profile", blogController.profile);
 
-blogRouter.get("/change-password",blogController.changePasswordPage);
-blogRouter.post("/change-password",blogController.submitChangePassword);
-
-
-
+blogRouter.get("/change-password", blogController.changePasswordPage);
+blogRouter.post("/change-password", blogController.submitChangePassword);
 
 module.exports = blogRouter;

@@ -6,15 +6,12 @@ module.exports.homePage = async (req, res) => {
   let blogs;
   try {
     blogs = await Blog.find();
-    return res.render("index", { blogs });
+    return res.render("index", { blogs});
   } catch (error) {
     console.log(error.message);
-    return res.render("index", { blogs: [] });
+    return res.render("index", {blogs:[]
+    });
   }
-};
-
-module.exports.indexBlog = (req, res) => {
-  return res.redirect("/homepage");
 };
 
 module.exports.formPage = (req, res) => {
@@ -42,10 +39,10 @@ module.exports.blogDelete = async (req, res) => {
     const blog = await Blog.findByIdAndDelete(id);
     fs.unlinkSync(blog.image);
     console.log("Blog deleted successfully");
-    return res.redirect("/index");
+    return res.redirect("/homePage");
   } catch (error) {
     console.log(error.message);
-    return res.redirect("/index");
+    return res.redirect("/homePage");
   }
 };
 
@@ -78,10 +75,10 @@ module.exports.blogUpdate = async (req, res) => {
       updateBlog.image = req.body.old_image;
     }
     await Blog.findByIdAndUpdate(id, updateBlog);
-    res.redirect("/index");
+    res.redirect("/homePage");
   } catch (error) {
     console.log(error.message);
-    res.redirect("/index");
+    res.redirect("/homePage");
   }
 };
 
@@ -100,13 +97,17 @@ module.exports.singUp = (req, res) => {
 };
 
 // Login
-
+ 
 module.exports.login = (req, res) => {
   return res.render("pages/login");
 };
 
-// Authentication
+module.exports.loginFlash = (req, res) => {
+  req.flash("success", "Login Successful!"); 
+  return res.redirect('/homePage');
+};
 
+// Authentication
 module.exports.createCred = async (req, res) => {
   let { password, confirmPw } = req.body;
   if (password === confirmPw) {
