@@ -6,6 +6,8 @@ const blogPw = new mongoose.Schema(
     email: String,
     password: String,
     confirmPw: String,
+    mainImge : String,
+    backgroundImg: String,
   },
   { timestamps: true }
 );

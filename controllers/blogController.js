@@ -6,11 +6,10 @@ module.exports.homePage = async (req, res) => {
   let blogs;
   try {
     blogs = await Blog.find();
-    return res.render("index", { blogs});
+    return res.render("index", { blogs });
   } catch (error) {
     console.log(error.message);
-    return res.render("index", {blogs:[]
-    });
+    return res.render("index", { blogs: [] });
   }
 };
 
@@ -23,8 +22,7 @@ module.exports.formPage = (req, res) => {
 module.exports.create = async (req, res) => {
   try {
     await Blog.create({ ...req.body, image: req.file.path });
-    console.log(req.body);
-
+    req.flash("success", "Blog Added successfully");
     return res.render("pages/form");
   } catch (error) {
     return res.json({ message: error.message });
@@ -52,7 +50,6 @@ module.exports.blogEdit = async (req, res) => {
   try {
     let { id } = req.params;
     let blog = await Blog.findById(id);
-    console.log("Blog Pakday gayo...😂", blog);
     return res.render("./pages/edit.ejs", { blog });
   } catch (error) {
     console.log(error.message);
@@ -97,14 +94,14 @@ module.exports.singUp = (req, res) => {
 };
 
 // Login
- 
+
 module.exports.login = (req, res) => {
   return res.render("pages/login");
 };
 
 module.exports.loginFlash = (req, res) => {
-  req.flash("success", "Login Successful!"); 
-  return res.redirect('/homePage');
+  req.flash("success", "Login Successful!");
+  return res.redirect("/homePage");
 };
 
 // Authentication
@@ -120,7 +117,7 @@ module.exports.createCred = async (req, res) => {
 };
 
 module.exports.logOut = (req, res) => {
-  console.log("User logged out, cookie removed.");
+  req.flash("success", "User logged out, cookie removed.");
   return res.redirect("/login");
 };
 
@@ -141,11 +138,47 @@ module.exports.submitChangePassword = async (req, res) => {
     if (new_password === confirm_password) {
       user.password = new_password;
       await user.save();
+      req.flash("success", "Pasword Change successFully");
       return res.redirect("/login");
     } else {
+      req.flash("error", "New password & Confirm Password is not match");
       return res.redirect(req.get("Referrer") || "/");
     }
   } else {
+    req.flash("error", "Current Password is not match");
     return res.redirect(req.get("Referrer") || "/");
+  }
+};
+
+module.exports.contactPage = (req, res) => {
+  return res.render("pages/contact");
+};
+
+module.exports.aboutPage = (req, res) => {
+  return res.render("pages/about");
+};
+
+module.exports.forgotPassword = (req, res) => {
+  return res.render("pages/forgotPassword");
+};
+
+module.exports.verifyOtp = (req, res) => {
+  return res.render("pages/verifay");
+};
+
+module.exports.setPassword = (req, res) => {
+  return res.render("pages/setPassword");
+};
+
+module.exports.verifyEmail = async (req, res) => {
+  try {
+    let user = await userCred.findOne({ email: req.body.email });
+    if (user) {
+      return res.json({ message: `${user.username} is successfuly verifid` });
+    } else {
+      return res.json({ message: "User not Found" });
+    }
+  } catch (error) {
+    return res.json({ message: error.message });
   }
 };

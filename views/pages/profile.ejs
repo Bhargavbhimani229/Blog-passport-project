@@ -1,241 +1,263 @@
 <!DOCTYPE html>
 <html lang="tr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Responsive Profil Tasarımı</title>
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
     <style>
-       * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
 
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f2f5;
-        }
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f0f2f5;
+      }
 
-        /* Container */
+      /* Container */
+      .profile-container {
+        max-width: 900px;
+        margin: 20px auto;
+        background: #fff;
+        border-radius: 10px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+      }
+
+      /* Kapak Resmi */
+      .cover-photo {
+        position: relative;
+        height: 300px;
+        background: #ddd;
+        overflow: hidden;
+      }
+
+      .cover-photo img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .edit-cover {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        background: rgba(0, 0, 0, 0.6);
+        color: #fff;
+        padding: 8px 15px;
+        border-radius: 20px;
+        cursor: pointer;
+        opacity: 0;
+        transition: opacity 0.3s;
+      }
+
+      .cover-photo:hover .edit-cover {
+        opacity: 1;
+      }
+
+      /* Profil Resmi */
+      .profile-picture {
+        position: relative;
+        text-align: center;
+        margin-top: -80px;
+        padding: 0 20px;
+      }
+
+      .profile-picture img {
+        width: 150px;
+        height: 150px;
+        border: 5px solid #fff;
+        border-radius: 50%;
+        object-fit: cover;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .edit-profile {
+        position: absolute;
+        bottom: 10px;
+        right: calc(50% - 75px); /* Resmin merkezine hizalı */
+        background: rgba(0, 0, 0, 0.6);
+        color: #fff;
+        padding: 8px;
+        border-radius: 50%;
+        cursor: pointer;
+        opacity: 0;
+        transition: opacity 0.3s;
+      }
+
+      .profile-picture:hover .edit-profile {
+        opacity: 1;
+      }
+
+      /* Profil Bilgileri */
+      .profile-info {
+        padding: 25px 20px;
+        text-align: center;
+      }
+
+      .profile-info h1 {
+        font-size: 26px;
+        color: #333;
+        margin-bottom: 8px;
+      }
+
+      .profile-info p {
+        color: #666;
+        font-size: 16px;
+        line-height: 1.5;
+        max-width: 600px;
+        margin: 0 auto;
+      }
+
+      /* Düzenleme Formu */
+      .edit-form {
+        display: none;
+        padding: 20px;
+        background: #f9f9f9;
+        border-top: 1px solid #eee;
+      }
+
+      .edit-form input,
+      .edit-form textarea {
+        width: 100%;
+        padding: 12px;
+        margin: 10px 0;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        font-size: 14px;
+      }
+
+      .edit-form button {
+        padding: 12px 25px;
+        background: #1877f2;
+        color: #fff;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background 0.3s;
+      }
+
+      .edit-form button:hover {
+        background: #166fe5;
+      }
+
+      /* Responsive Tasarım */
+      @media (max-width: 768px) {
         .profile-container {
-            max-width: 900px;
-            margin: 20px auto;
-            background: #fff;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
+          margin: 10px;
+          border-radius: 0;
         }
 
-        /* Kapak Resmi */
         .cover-photo {
-            position: relative;
-            height: 300px;
-            background: #ddd;
-            overflow: hidden;
+          height: 200px;
         }
 
-        .cover-photo img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .edit-cover {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            background: rgba(0, 0, 0, 0.6);
-            color: #fff;
-            padding: 8px 15px;
-            border-radius: 20px;
-            cursor: pointer;
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-
-        .cover-photo:hover .edit-cover {
-            opacity: 1;
-        }
-
-        /* Profil Resmi */
         .profile-picture {
-            position: relative;
-            text-align: center;
-            margin-top: -80px;
-            padding: 0 20px;
+          margin-top: -60px;
         }
 
         .profile-picture img {
-            width: 150px;
-            height: 150px;
-            border: 5px solid #fff;
-            border-radius: 50%;
-            object-fit: cover;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+          width: 120px;
+          height: 120px;
         }
 
         .edit-profile {
-            position: absolute;
-            bottom: 10px;
-            right: calc(50% - 75px); /* Resmin merkezine hizalı */
-            background: rgba(0, 0, 0, 0.6);
-            color: #fff;
-            padding: 8px;
-            border-radius: 50%;
-            cursor: pointer;
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-
-        .profile-picture:hover .edit-profile {
-            opacity: 1;
-        }
-
-        /* Profil Bilgileri */
-        .profile-info {
-            padding: 25px 20px;
-            text-align: center;
+          right: calc(50% - 60px);
         }
 
         .profile-info h1 {
-            font-size: 26px;
-            color: #333;
-            margin-bottom: 8px;
+          font-size: 22px;
         }
 
         .profile-info p {
-            color: #666;
-            font-size: 16px;
-            line-height: 1.5;
-            max-width: 600px;
-            margin: 0 auto;
+          font-size: 14px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .cover-photo {
+          height: 150px;
         }
 
-        /* Düzenleme Formu */
-        .edit-form {
-            display: none;
-            padding: 20px;
-            background: #f9f9f9;
-            border-top: 1px solid #eee;
+        .profile-picture {
+          margin-top: -50px;
         }
 
-        .edit-form input,
-        .edit-form textarea {
-            width: 100%;
-            padding: 12px;
-            margin: 10px 0;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            font-size: 14px;
+        .profile-picture img {
+          width: 100px;
+          height: 100px;
         }
 
-        .edit-form button {
-            padding: 12px 25px;
-            background: #1877f2;
-            color: #fff;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: background 0.3s;
+        .edit-profile {
+          right: calc(50% - 50px);
+          padding: 6px;
         }
 
-        .edit-form button:hover {
-            background: #166fe5;
+        .edit-cover {
+          padding: 6px 12px;
+          font-size: 14px;
         }
-
-        /* Responsive Tasarım */
-        @media (max-width: 768px) {
-            .profile-container {
-                margin: 10px;
-                border-radius: 0;
-            }
-
-            .cover-photo {
-                height: 200px;
-            }
-
-            .profile-picture {
-                margin-top: -60px;
-            }
-
-            .profile-picture img {
-                width: 120px;
-                height: 120px;
-            }
-
-            .edit-profile {
-                right: calc(50% - 60px);
-            }
-
-            .profile-info h1 {
-                font-size: 22px;
-            }
-
-            .profile-info p {
-                font-size: 14px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .cover-photo {
-                height: 150px;
-            }
-
-            .profile-picture {
-                margin-top: -50px;
-            }
-
-            .profile-picture img {
-                width: 100px;
-                height: 100px;
-            }
-
-            .edit-profile {
-                right: calc(50% - 50px);
-                padding: 6px;
-            }
-
-            .edit-cover {
-                padding: 6px 12px;
-                font-size: 14px;
-            }
-        }
- 
-
+      }
     </style>
-</head>
-  
+  </head>
+
   <%- include("../partials/header") %>
-    <div class="profile-container">
-        <!-- Kapak Resmi -->
-        <div class="cover-photo">
-            <img id="coverImage" src="https://placehold.co/800x300" alt="Kapak Resmi">
-            <div class="edit-cover" onclick="openCoverEditor()">✎ Kapak Resmini Değiştir</div>
-        </div>
-
-        <!-- Profil Resmi -->
-        <div class="profile-picture">
-            <img id="profileImage" src="https://placehold.co/150x150" alt="Profil Fotoğrafı">
-            <div class="edit-profile" onclick="openProfileEditor()">✎</div>
-        </div>
-
-        <!-- Profil Bilgileri -->
-        <div class="profile-info">
-            <h1 id="username"> <%= user.username %></h1>
-            <p id="bio">Frontend Developer | React & Vue.js | İstanbul</p>
-            <button onclick="openEditForm()" style="margin-top: 15px;">Profili Düzenle</button>
-        </div>
-
-        <!-- Düzenleme Formu -->
-        <div class="edit-form" id="editForm">
-            <input type="text" id="editUsername" placeholder="Adınızı girin">
-            <textarea id="editBio" placeholder="Hakkınızda bir şeyler yazın..." rows="3"></textarea>
-            <button onclick="saveProfile()">Kaydet</button>
-        </div>
+  <div class="profile-container">
+    <!-- Kapak Resmi -->
+    <div class="cover-photo">
+      <!-- <img id="coverImage" src="<%= user.backgroundImg %>" alt="Kapak Resmi"> -->
+      <img
+        id="coverImage"
+        src="https://static.vecteezy.com/system/resources/thumbnails/048/926/084/small_2x/silver-membership-icon-default-avatar-profile-icon-membership-icon-social-media-user-image-illustration-vector.jpg"
+        alt="Kapak Resmi"
+        style="background-size: cover; background-repeat: no-repeat; width: 100%;"
+      />
+      <a class="edit-cover">✎</a>
     </div>
-   
-    <%- include('../partials/footer') %>
+
+    <!-- Profil Resmi -->
+    <div class="profile-picture">
+      <!-- <img id="profileImage" src="<%= user.mainImge%>" alt="Profil Fotoğrafı"> -->
+      <img
+        id="profileImage"
+        src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
+        alt="Profil Fotoğrafı"
+      />
+      <a class="edit-profile">✎</a>
+    </div>
+
+    <!-- Profil Bilgileri -->
+    <div class="profile-info">
+      <h1 id="username"><%= user.username %></h1>
+      <p id="bio">Frontend Developer | React & Vue.js | İstanbul</p>
+      <button onclick="openEditForm()" style="margin-top: 15px">
+        Profili Düzenle
+      </button>
+    </div>
+
+    <!-- Düzenleme Formu -->
+    <div class="edit-form" id="editForm">
+      <input type="text" id="editUsername" placeholder="Adınızı girin" />
+      <textarea
+        id="editBio"
+        placeholder="Hakkınızda bir şeyler yazın..."
+        rows="3"
+      ></textarea>
+      <button onclick="saveProfile()">Kaydet</button>
+    </div>
+  </div>
+
+  <%- include('../partials/footer') %>
+</html>

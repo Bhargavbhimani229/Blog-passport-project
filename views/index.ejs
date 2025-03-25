@@ -219,6 +219,17 @@
           icon: "success",
         })
         <%} %>
+
+        <% if(flash.error.length){%>
+        swal({
+          title: "error",
+          text: "<%= flash.error %>",
+          icon: "error",
+        })
+        <%} %>
+
+
+       
         
     </script>
   </body>

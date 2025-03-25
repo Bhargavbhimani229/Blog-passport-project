@@ -79,7 +79,7 @@
           <div class="text-center mt-3">
             <p class="text-muted">Login with Others</p>
             <a class="btn btn-light w-100 mb-2" href="/singUp">Sing-Up</a>
-            <a class="btn btn-light w-100" href="#">Login with Facebook</a>
+            <a class="btn btn-light w-100" href="/forgotPassword">Forgote Pasword?</a>
           </div>
         </div>
         <div class="login-image">
@@ -90,5 +90,23 @@
         </div>
       </div>
     </div>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script>
+    <% if(flash.success.length){%>
+        swal({
+          title: "success",
+          text: "<%= flash.success %>",
+          icon: "success",
+        })
+        <%} %>
+
+        <% if(flash.error.length){%>
+        swal({
+          title: "error",
+          text: "<%= flash.error %>",
+          icon: "error",
+        })
+        <%} %>
+    </script>
   </body>
 </html>

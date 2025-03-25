@@ -12,6 +12,10 @@ blogRouter.get("/login", blogController.login);
 blogRouter.get("/singUp", blogController.singUp);
 blogRouter.post("/createCred", blogController.createCred);
 blogRouter.post("/login",passport.authenticate("local",{ failureRedirect: "/login" }),blogController.loginFlash);
+blogRouter.get("/forgotPassword",blogController.forgotPassword);
+blogRouter.get("/verify",blogController.verifyOtp);
+blogRouter.get("/setPassword",blogController.setPassword);
+blogRouter.post("/",blogController.verifyEmail);
 blogRouter.use(passport.userPassportAuth);
 
 blogRouter.get("/homePage", blogController.homePage);
@@ -22,7 +26,9 @@ blogRouter.get("/edit/:id", blogController.blogEdit);
 blogRouter.post("/update/:id", upload, blogController.blogUpdate);
 blogRouter.get("/blogView/:id", blogController.view);
 blogRouter.get("/profile", blogController.profile);
-
+blogRouter.get("/logOut",blogController.logOut);
+blogRouter.get("/contact",blogController.contactPage);
+blogRouter.get("/aboutPage",blogController.aboutPage);
 blogRouter.get("/change-password", blogController.changePasswordPage);
 blogRouter.post("/change-password", blogController.submitChangePassword);
 
