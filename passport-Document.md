@@ -122,3 +122,6 @@ module.exports.logout = (req, res)=>{
     req.logOut(()=>{
         return res.redirect("/login");
     }
+
+
+    pw: mkvczepnneosijyn

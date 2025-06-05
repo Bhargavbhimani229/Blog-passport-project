@@ -1,6 +1,9 @@
 const Blog = require("../models/blogmodel");
 const fs = require("fs");
 const userCred = require("../models/pwShema");
+const nodemailer = require("nodemailer");
+const { json } = require("body-parser");
+require("dotenv").config();
 
 module.exports.homePage = async (req, res) => {
   let blogs;
@@ -96,6 +99,8 @@ module.exports.singUp = (req, res) => {
 // Login
 
 module.exports.login = (req, res) => {
+  console.log("Login Fail");
+  
   return res.render("pages/login");
 };
 
@@ -170,15 +175,122 @@ module.exports.setPassword = (req, res) => {
   return res.render("pages/setPassword");
 };
 
+let otp;
+
 module.exports.verifyEmail = async (req, res) => {
   try {
+    otp = Math.floor(100000 + Math.random() * 900000);
     let user = await userCred.findOne({ email: req.body.email });
     if (user) {
-      return res.json({ message: `${user.username} is successfuly verifid` });
+      const transporter = nodemailer.createTransport({
+        service: "gmail",
+        port: 587,
+        secure: false, // true for port 465, false for other ports
+        auth: {
+          user: process.env.EMAIL_USER,
+          pass: process.env.EMAIL_PASS,
+        },
+      });
+      const info = await transporter.sendMail({
+        from: `"Maddison Foo Koch 👻" <${process.env.EMAIL_USER}>`, // sender address
+        to: req.body.email, // list of receivers
+        subject: "Forgot Password OTP", // Subject line
+        text: "OTP Verify", // plain text body
+        html: `<strong>OTP : ${otp}</strong>`,
+      });
+      res.cookie ('email',JSON.stringify(req.body.email));
+      req.flash("success","Email verify Successfully.");
+      return res.redirect("/verify");
+      // return res.json({ message: `${user.username} is successfuly verifid` });
     } else {
-      return res.json({ message: "User not Found" });
+      req.flash("error","Email is not Match.");
+
+      return res.redirect("/forgotpassword");
+      // return res.json({ message: "User not Found" });
     }
   } catch (error) {
     return res.json({ message: error.message });
+  }
+};
+
+
+module.exports.otpVerify = async(req,res) => {
+  try {
+    if(req.body.otp == otp){
+      req.flash("success","OTP verify Successfully.");
+      return res.redirect("/setPassword");
+    //  return res.json({message: "OTP verify successfully"})
+    }
+    else{
+      req.flash("error","OTP is not Match.");
+
+      return res.redirect("/verify");
+      // return res.json({message : "Invalid OTP."});
+    }
+  } catch (error) {
+    return res.json({message : error.message});
+  }
+
+}
+
+module.exports.change_password = async(req,res) => {
+  try {
+    let email = JSON.parse(req.cookies.email);
+    let user  = await userCred.findOne({email:email});
+    let {new_password,confirm_password} = req.body;
+    if(new_password === confirm_password){
+      user.password = new_password;
+      await user.save();
+
+      req.flash("success","ForgotPassword Successfully.");
+      return res.redirect("/login")
+      
+      // return res.json({message:"password changed successfully."})
+    }else{
+      req.flash("error","New Password & confirm Password is not Match.");
+      return res.redirect("/setPassword")
+      // return res.json({message:"password not match"})
+    }
+  } catch (error) {
+    return res.json({message : error.message});
+  }
+
+}
+
+module.exports.like = async (req, res) => {
+  try {
+    const blogId = req.params.id;
+    const blog = await Blog.findById(blogId);
+    if (!blog) {
+      req.flash("error", "Blog not found");
+      return res.redirect("/homePage");
+    }
+    blog.likes = (blog.likes || 0) + 1;
+    await blog.save();
+    req.flash("success", "You liked the blog");
+    return res.redirect("/homePage");
+  } catch (error) {
+    console.error(error.message);
+    req.flash("error", "Something went wrong");
+    return res.redirect("/homePage");
+  }
+};
+
+module.exports.dislike = async (req, res) => {
+  try {
+    const blogId = req.params.id;
+    const blog = await Blog.findById(blogId);
+    if (!blog) {
+      req.flash("error", "Blog not found");
+      return res.redirect("/homePage");
+    }
+    blog.dislikes = (blog.dislikes || 0) + 1;
+    await blog.save();
+    req.flash("success", "You disliked the blog");
+    return res.redirect("/homePage");
+  } catch (error) {
+    console.error(error.message);
+    req.flash("error", "Something went wrong");
+    return res.redirect("/homePage");
   }
 };

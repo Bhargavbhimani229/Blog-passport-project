@@ -1,236 +1,376 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <script src="/docs/5.3/assets/js/color-modes.js"></script>
-
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Blog-Project</title>
+    <title>Blog Project | Home</title>
 
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
       rel="stylesheet"
       crossorigin="anonymous"
     />
-
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap"
+      rel="stylesheet"
+    />
     <style>
-      /* Custom Body Styles */
-      body {
-        font-family: "Poppins", sans-serif;
-        color: white;
-        margin: 0;
-        padding: 0;
-        scroll-behavior: smooth;
+      * {
+        box-sizing: border-box;
       }
 
-      /* Background Video */
-      .bg-video {
+      body {
+        font-family: "Poppins", sans-serif;
+        color: #ffffff;
+        background-image: url("https://www.transparenttextures.com/patterns/cubes.png");
+        background-color: #121212;
+        margin: 0;
+        padding: 0;
+        overflow-x: hidden;
+        position: relative;
+      }
+
+      body::before {
+        content: "";
         position: fixed;
         top: 0;
         left: 0;
         width: 100%;
         height: 100%;
-        object-fit: cover;
+        opacity: 0.05;
         z-index: -1;
+        animation: moveBg 20s linear infinite;
+        background-image: url("https://www.transparenttextures.com/patterns/cubes.png");
       }
 
-      /* Custom Navbar */
+      @keyframes moveBg {
+        from {
+          background-position: 0 0;
+        }
+        to {
+          background-position: 100% 100%;
+        }
+      }
+
       .custom-navbar {
-        background: rgba(255, 255, 255, 0.1);
-        backdrop-filter: blur(10px);
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        backdrop-filter: blur(15px);
+        background-color: rgba(0, 0, 0, 0.3);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         position: fixed;
         width: 100%;
         top: 0;
         z-index: 1000;
-        transition: background 0.3s ease, box-shadow 0.3s ease;
       }
 
-      .custom-navbar .navbar-brand {
-        font-size: 24px;
-        font-weight: bold;
-        letter-spacing: 1px;
-        color: white;
-        transition: color 0.3s ease;
+      .custom-navbar .nav-link {
+        color: #fff !important;
+        font-weight: 500;
+        margin: 0 10px;
       }
 
-      .custom-navbar .navbar-nav .nav-link {
-        font-weight: 600;
-        padding: 12px 20px;
-        border-radius: 8px;
-        transition: all 0.3s ease-in-out;
-        color: white;
+      .custom-navbar .nav-link:hover {
+        color: #00d4ff !important;
       }
 
-      .custom-navbar .navbar-nav .nav-link:hover {
-        background: rgba(255, 255, 255, 0.2);
-        color: #ff7eb3;
+      main {
+        padding-top: 90px;
       }
 
-      /* Card Styles */
       .card {
-        border-radius: 12px;
+        border: none;
+        border-radius: 16px;
         overflow: hidden;
-        transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-        height: 100%;
+        transition: all 0.3s ease;
+        background: rgba(255, 255, 255, 0.07);
+        backdrop-filter: blur(5px);
+        color: white;
+        display: flex;
+        flex-direction: column;
       }
 
       .card:hover {
-        transform: translateY(-10px);
-        box-shadow: 0 12px 20px rgba(0, 0, 0, 0.3);
+        transform: translateY(-6px);
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
       }
 
       .card img {
         height: 200px;
         object-fit: cover;
-        transition: transform 0.3s ease;
-      }
-
-      .card:hover img {
-        transform: scale(1.05);
+        width: 100%;
       }
 
       .card-body {
+        flex-grow: 1;
         display: flex;
         flex-direction: column;
-        justify-content: space-between;
+        padding: 1rem;
       }
 
-      .btn-group a {
-        min-width: 70px;
+      .card-title {
+        font-weight: 700;
+        margin-bottom: 0.2rem;
       }
 
-      /* Footer */
-      footer {
-        background: rgba(255, 255, 255, 0.2);
-        padding: 30px 0;
-        text-align: center;
-        position: relative;
-        width: 100%;
-        box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.2);
+      .card-subtitle {
+        font-size: 14px;
+        font-weight: 500;
+        color: #ddd !important;
+        margin-bottom: 0.15rem;
       }
 
-      footer p {
+      .card small.text-muted {
+        font-size: 12px;
+        font-weight: 300;
+        color: #bbb !important;
+        margin-bottom: 0.75rem;
+        display: block;
+      }
+
+      .card-text {
+        flex-grow: 1;
+        font-weight: 300;
+      }
+
+      .btn-group a,
+      .btn-group button {
+        margin-right: 5px;
+      }
+
+      .btn-outline-primary {
+        color: #00d4ff;
+        border-color: #00d4ff;
+      }
+
+      .btn-outline-primary:hover {
+        background-color: #00d4ff;
+        color: #000;
+      }
+
+      .btn-outline-warning:hover {
+        background-color: #ffc107;
+        color: black;
+      }
+
+      .btn-outline-danger:hover {
+        background-color: #dc3545;
         color: white;
       }
 
-      /* Main Content */
-      main {
-        padding-top: 80px; /* Adjust to fit the fixed navbar */
-        min-height: 100vh;
+      .btn-like {
+        color: #ff4081;
+        border-color: #ff4081;
       }
 
-      /* Improved Card Spacing */
-      .album .container {
-        padding-bottom: 50px; /* Bottom space for better layout */
+      .btn-like:hover {
+        background-color: #ff4081;
+        color: white;
+      }
+
+      footer {
+        background: #1a1a1a;
+        padding: 20px 0;
+        text-align: center;
+        color: #777;
+        font-size: 14px;
+        border-top: 1px solid #333;
+        margin-top: 60px;
+        user-select: none;
+      }
+      footer a {
+        color: #00d4ff;
+        text-decoration: none;
+        font-weight: 500;
+      }
+      footer a:hover {
+        text-decoration: underline;
       }
 
       @media (max-width: 768px) {
-        .row-cols-md-3 {
-          row-gap: 20px;
+        .card img {
+          height: 180px;
         }
+      }
+
+      small {
+        color: #fff;
+      }
+
+      .carousel-caption {
+        bottom: 20px;
+        left: 20px;
+        text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.7);
       }
     </style>
   </head>
-
   <body>
-    <!-- Background Video -->
-    <video autoplay loop muted playsinline class="bg-video">
-      <source
-        src="https://cdn.pixabay.com/video/2023/03/09/153976-817104245_large.mp4"
-        type="video/mp4"
-      />
-      Your browser does not support the video tag.
-    </video>
-
     <!-- Navbar -->
     <%- include('./partials/header') %>
 
+    <!-- Main Content -->
     <main>
-      <div class="album">
-        <div class="container">
-          <!-- Blog List -->
-          <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
-            <% blogs.forEach((blog) => { %>
-            <div class="col">
-              <div class="card shadow-sm">
+      <div class="container py-5">
+        <!-- Carousel -->
+        <div
+          id="blogCarousel"
+          class="carousel slide mb-5 w-100"
+          data-bs-ride="carousel"
+        >
+          <div class="carousel-inner">
+            <% blogs.forEach((blog, index) => { %>
+            <div class="carousel-item <%= index === 0 ? 'active' : '' %>">
+              <div class="card mx-auto shadow-sm position-relative" style="max-width: 1000px; height: 500px;">
                 <img
-                  class="card-img-top"
                   src="<%= blog.image %>"
+                  class="card-img-top"
                   alt="Blog Image"
+                  style="height: 500px; object-fit: cover"
                 />
-                <div class="card-body">
-                  <h5 class="card-title"><%= blog.title %></h5>
-                  <h6 class="card-subtitle mb-2 text-muted">
-                    <%= blog.author %>
-                  </h6>
-                  <p class="card-text">
-                    <%= blog.content.substring(0, 100) %>...
+                <!-- Overlay Text -->
+                <div class="carousel-caption d-none d-md-block text-start bg-dark bg-opacity-50 p-4 rounded" style="position: absolute;">
+                  <h3 class="text-white mb-1"><%= blog.title %></h3>
+                  <p class="mb-0">
+                    <small>By <%= blog.author %> | <%= new Date(blog.createdAt).toLocaleString() %></small>
                   </p>
-                  <div
-                    class="d-flex justify-content-between align-items-center"
-                  >
-                    <div class="btn-group">
-                      <a
-                        class="btn btn-sm btn-outline-primary"
-                        href="/blogView/<%= blog.id %>"
-                        >Read More</a
-                      >
-                      <a
-                        class="btn btn-sm btn-outline-warning"
-                        href="/edit/<%= blog.id %>"
-                        >Edit</a
-                      >
-                      <a
-                        class="btn btn-sm btn-outline-danger"
-                        href="/delete/<%= blog.id %>"
-                        >Delete</a
-                      >
-                    </div>
-                    <small class="text-muted"
-                      ><%= new Date(blog.createdAt).toLocaleString() %></small
-                    >
-                  </div>
                 </div>
               </div>
             </div>
             <% }); %>
           </div>
+
+          <button
+            class="carousel-control-prev"
+            hidden
+            type="button"
+            data-bs-target="#blogCarousel"
+            data-bs-slide="prev"
+          >
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button
+            class="carousel-control-next"
+            hidden
+            type="button"
+            data-bs-target="#blogCarousel"
+            data-bs-slide="next"
+          >
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
+        </div>
+
+        <!-- Blog Cards -->
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
+          <% blogs.forEach((blog) => { %>
+          <div class="col">
+            <div class="card h-100 shadow-sm">
+              <img
+                class="card-img-top"
+                src="<%= blog.image %>"
+                alt="Blog Image"
+              />
+              <div class="card-body d-flex flex-column">
+                <h5 class="card-title"><%= blog.title %></h5>
+                <h6 class="card-subtitle"><%= blog.author %></h6>
+                <small class="text-muted"
+                  ><%= new Date(blog.createdAt).toLocaleString() %></small
+                >
+                <p class="card-text flex-grow-1">
+                  <%= blog.content.substring(0, 100) %>...
+                </p>
+                <div
+                  class="d-flex justify-content-between align-items-center mt-3"
+                >
+                  <div class="btn-group">
+                    <a
+                      class="btn btn-sm btn-outline-primary"
+                      href="/blogView/<%= blog.id %>"
+                      >Read</a
+                    >
+                    <a
+                      class="btn btn-sm btn-outline-warning"
+                      href="/edit/<%= blog.id %>"
+                      >Edit</a
+                    >
+                    <a
+                      class="btn btn-sm btn-outline-danger"
+                      href="/delete/<%= blog.id %>"
+                      >Delete</a
+                    >
+
+                    <form
+                      action="/like/<%= blog.id %>"
+                      method="POST"
+                      style="display: inline"
+                    >
+                      <button
+                        type="submit"
+                        class="btn btn-sm btn-like"
+                        title="Like"
+                      >
+                        ❤️ Like (<%= blog.likes || 0 %>)
+                      </button>
+                    </form>
+
+                    <form
+                      action="/dislike/<%= blog.id %>"
+                      method="POST"
+                      style="display: inline"
+                    >
+                      <button
+                        type="submit"
+                        class="btn btn-sm btn-outline-secondary"
+                        title="Dislike"
+                      >
+                        👎 Dislike (<%= blog.dislikes || 0 %>)
+                      </button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <% }); %>
         </div>
       </div>
     </main>
 
+    <!-- Footer -->
     <footer>
       <div class="container">
-        <p>© 2025 Blog Project. All rights reserved.</p>
+        <p>
+          © 2025 Blog Project. Made with ❤️ by
+          <a href="https://github.com/Bhargavbhimani229" target="_blank"
+            >Bhargav Bhimani</a
+          >
+        </p>
       </div>
     </footer>
+
+    <!-- Scripts -->
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
       crossorigin="anonymous"
     ></script>
     <script>
+      <% if (flash.success.length) { %>
+      swal({
+        title: "Success!",
+        text: "<%= flash.success %>",
+        icon: "success",
+        button: "OK",
+      });
+      <% } %>
 
-      <% if(flash.success.length){%>
-        swal({
-          title: "success",
-          text: "<%= flash.success %>",
-          icon: "success",
-        })
-        <%} %>
-
-        <% if(flash.error.length){%>
-        swal({
-          title: "error",
-          text: "<%= flash.error %>",
-          icon: "error",
-        })
-        <%} %>
-
-
-       
-        
+      <% if (flash.error.length) { %>
+      swal({
+        title: "Error!",
+        text: "<%= flash.error %>",
+        icon: "error",
+        button: "Try Again",
+      });
+      <% } %>
     </script>
   </body>
 </html>

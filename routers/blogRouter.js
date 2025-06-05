@@ -3,6 +3,7 @@ const { Router } = require("express");
 const blogController = require("../controllers/blogController");
 const upload = require("../middlewares/blogImage");
 const passport = require("passport");
+const password_cookie = require("../middlewares/pwcookie");
 
 const blogRouter = Router();
 
@@ -12,10 +13,16 @@ blogRouter.get("/login", blogController.login);
 blogRouter.get("/singUp", blogController.singUp);
 blogRouter.post("/createCred", blogController.createCred);
 blogRouter.post("/login",passport.authenticate("local",{ failureRedirect: "/login" }),blogController.loginFlash);
+
 blogRouter.get("/forgotPassword",blogController.forgotPassword);
+blogRouter.post("/forgotPassword",blogController.verifyEmail);
+
 blogRouter.get("/verify",blogController.verifyOtp);
+blogRouter.post("/verify",password_cookie,blogController.otpVerify);
+
 blogRouter.get("/setPassword",blogController.setPassword);
-blogRouter.post("/",blogController.verifyEmail);
+blogRouter.post("/setPassword",password_cookie,blogController.change_password);
+
 blogRouter.use(passport.userPassportAuth);
 
 blogRouter.get("/homePage", blogController.homePage);
@@ -31,5 +38,8 @@ blogRouter.get("/contact",blogController.contactPage);
 blogRouter.get("/aboutPage",blogController.aboutPage);
 blogRouter.get("/change-password", blogController.changePasswordPage);
 blogRouter.post("/change-password", blogController.submitChangePassword);
+blogRouter.post("/like/:id", blogController.like);
+blogRouter.post("/dislike/:id", blogController.dislike);
+
 
 module.exports = blogRouter;
